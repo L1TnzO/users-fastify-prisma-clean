@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// 1. Definir una tabla "User" con las siguientes columnas:
+//   - id (string, UUID, clave primaria)
+//   - name (string, opcional)
+//   - email (string, único y obligatorio)
+//   - createdAt (fecha, se asigna automáticamente)
+
+model User {
+  userId    String    @id @default(uuid())
+  email     String    @unique
+  name      String?
+  createdAt DateTime  @default(now())
+}
