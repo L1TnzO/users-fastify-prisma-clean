@@ -5,8 +5,8 @@
 
 function makeCreateUser(userRepository) {
     return async (userData) => {
-        if (!userData.name || !userData.email) {
-            throw new Error('Name and email are required');
+        if (!userData.name || !userData.email || !userData.password) {
+            throw new Error('Name, email and password are required');
         }
 
         const user = await userRepository.createUser(userData);

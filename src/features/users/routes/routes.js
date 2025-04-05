@@ -10,9 +10,9 @@ const controller = require('../controllers/controller');
 async function userRoutes(fastify, options) {
   fastify.post('/users', controller.createUser);
   fastify.get('/users', controller.getAllUsers);
-  fastify.get('/users/:id', controller.getUserById);
-  fastify.put('/users/:id', controller.updateUser);
-  fastify.delete('/users/:id', controller.deleteUser);
+  fastify.get('/users/:userId', controller.getUserById);
+  fastify.put('/users/:userId', controller.updateUser);
+  fastify.delete('/users/:userId', controller.deleteUser);
 }
 
 module.exports = userRoutes;

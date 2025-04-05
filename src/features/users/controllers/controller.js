@@ -1,4 +1,5 @@
 const { createUser, deleteUser, getAllUsers, getUserById, updateUser } = require('../useCases/index.js');
+const { toUserResponse, toUserResponseList } = require('../dto/userDto');
 
 async function createUserController(request, reply) {
   try {
@@ -12,7 +13,7 @@ async function createUserController(request, reply) {
 async function getAllUsersController(request, reply) {
   try {
     const users = await getAllUsers();
-    reply.status(200).send(users);
+    reply.status(200).send(toUserResponseList(users));
   } catch (error) {
     reply.status(500).send({ message: error.message });
   }
@@ -24,7 +25,7 @@ async function getUserByIdController(request, reply) {
     if (!user) {
       return reply.status(404).send({ message: 'User not found' });
     }
-    reply.status(200).send(user);
+    reply.status(200).send(toUserResponse(user));
   } catch (error) {
     reply.status(500).send({ message: error.message });
   }

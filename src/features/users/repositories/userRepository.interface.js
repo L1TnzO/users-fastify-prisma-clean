@@ -4,6 +4,7 @@ module.exports = {
      * @typedef {Object} UserData
      * @property {string} name - The name of the user.
      * @property {string} email - The email of the user.
+     * @property {string} password - The password of the user.
      */
 
     /**
@@ -11,6 +12,7 @@ module.exports = {
      * @property {string} userId - The unique identifier of the user.
      * @property {string} name - The name of the user.
      * @property {string} email - The email of the user.
+     * @property {string} password - The password of the user.
      * @property {Date} createdAt - The date the user was created.
      */
 
