@@ -1,13 +1,15 @@
-const createUser = require('./createUser');
-const deleteUser = require('./deleteUser');
-const getAllUsers = require('./getAllUsers');
-const getUserById = require('./getUserById');
-const updateUser = require('./updateUser');
+const makeCreateUser = require('./createUser');
+const makeDeleteUser = require('./deleteUser');
+const makeGetAllUsers = require('./getAllUsers');
+const makeGetUserById = require('./getUserById');
+const makeUpdateUser = require('./updateUser');
+
+const userRepository = require('../repositories/prismaUserRepository');
 
 module.exports = {
-    createUser,
-    deleteUser,
-    getAllUsers,
-    getUserById,
-    updateUser,
+    createUser: makeCreateUser(userRepository),
+    deleteUser: makeDeleteUser(userRepository),
+    getAllUsers: makeGetAllUsers(userRepository),
+    getUserById: makeGetUserById(userRepository),
+    updateUser: makeUpdateUser(userRepository),
 };

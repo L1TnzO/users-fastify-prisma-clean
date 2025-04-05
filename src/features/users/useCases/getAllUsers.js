@@ -2,9 +2,11 @@
 // 2. Llamar al método Repository para obtener todos los usuarios.
 // 3. Retornar los usuarios.
 
-const { getAllUsers } = require('../repositories/repository');
-
-async function execute() {
-    return await getAllUsers();
+function makeGetAllUsers(userRepository) {
+    return async () => {
+        const users = await userRepository.getAllUsers();
+        return users;
+    };
 }
-module.exports = { execute };
+
+module.exports = makeGetAllUsers;

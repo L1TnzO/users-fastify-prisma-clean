@@ -1,73 +1,64 @@
-// createUser
-// 1. Recibir la solicitud HTTP con los datos del usuario.
-// 2. Llamar al servicio de "createUser".
-// 3. Si hay un error, devolver un mensaje de error con código 400.
-// 4. Si tiene éxito, devolver el usuario creado con código 201.
+const { createUser, deleteUser, getAllUsers, getUserById, updateUser } = require('../useCases/index.js');
 
-// getAllUsers
-// 1. Llamar al servicio de "getAllUsers".
-// 2. Enviar la lista de usuarios en la respuesta.
-
-const service = require('../services/service');
-
-async function createUser(req, res) {
+async function createUserController(request, reply) {
   try {
-    const user = await service.createUser(req.body);
-    res.status(201).send(user);
+    const user = await createUser(request.body);
+    reply.status(201).send(user);
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    reply.status(400).send({ message: error.message });
   }
 }
 
-async function getAllUsers(req, res) {
+async function getAllUsersController(request, reply) {
   try {
-    const users = await service.getAllUsers();
-    res.status(200).send(users);
+    const users = await getAllUsers();
+    reply.status(200).send(users);
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    reply.status(500).send({ message: error.message });
   }
 }
 
-async function getUserById(req, res) {
+async function getUserByIdController(request, reply) {
   try {
-    const user = await service.getUserById(req.params.id);
+    const user = await getUserById(request.params.userId);
     if (!user) {
-      return res.status(404).send({ error: 'User not found' });
+      return reply.status(404).send({ message: 'User not found' });
     }
-    res.status(200).send(user);
+    reply.status(200).send(user);
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    reply.status(500).send({ message: error.message });
   }
 }
 
-async function updateUser(req, res) {
+async function updateUserController(request, reply) {
   try {
-    const user = await service.updateUser(req.params.id, req.body);
+    const user = await updateUser(request.params.userId, request.body);
     if (!user) {
-      return res.status(404).send({ error: 'User not found' });
+      return reply.status(404).send({ message: 'User not found' });
     }
-    res.status(200).send(user);
+    reply.status(200).send(user);
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    reply.status(400).send({ message: error.message });
   }
 }
 
-async function deleteUser(req, res) {
+async function deleteUserController(request, reply) {
   try {
-    const user = await service.deleteUser(req.params.id);
-    if (!user) {
-      return res.status(404).send({ error: 'User not found' });
+    const deleted = await deleteUser(request.params.userId);
+    if (!deleted) {
+      return reply.status(404).send({ message: 'User not found' });
     }
-    res.status(204).send();
+    reply.status(204).send();
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    reply.status(500).send({ message: error.message });
   }
 }
+
 
 module.exports = {
-  createUser,
-  getAllUsers,
-  getUserById,
-  updateUser,
-  deleteUser,
+  createUser: createUserController,
+  getAllUsers: getAllUsersController,
+  getUserById: getUserByIdController,
+  updateUser: updateUserController,
+  deleteUser: deleteUserController,
 };

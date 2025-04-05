@@ -2,9 +2,11 @@
 // 2. Llamar al método Repository para obtener un usuario por su id.
 // 3. Retornar el usuario.
 
-const { getUserById } = require('../repositories/repository');
-
-async function execute(userId) {
-    return await getUserById(userId);
+function makeGetUserById(userRepository) {
+    return async (id) => {
+        const user = await userRepository.getUserById(id);
+        return user;
+    };
 }
-module.exports = { execute };
+
+module.exports = makeGetUserById;

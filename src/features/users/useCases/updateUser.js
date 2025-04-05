@@ -4,16 +4,15 @@
 // 4. Llamar al método Repository para modificar un usuario por su id.
 // 5. Retornar el usuario modificado.
 
-const { updateUser } = require('../repositories/repository');
+function makeUpdateUser(userRepository) {
+    return async (id, userData) => {
+        if (!userData.name || !userData.email) {
+            throw new Error('Name and email are required');
+        }
 
-async function execute(userId, userData) {
-    if (!userData.name || !userData.email) {
-        throw new Error('Name and email are required');
-    }
-    if (!userId) {
-        throw new Error('User ID is required');
-    }
-    return await updateUser(userId, userData);
+        const user = await userRepository.updateUser(id, userData);
+        return user;
+    };
 }
 
-module.exports = { execute };
+module.exports = makeUpdateUser;

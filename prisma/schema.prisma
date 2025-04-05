@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = "file:dev.db?mode=memory&cache=shared"
 }
 
 // 1. Definir una tabla "User" con las siguientes columnas:

@@ -3,12 +3,15 @@
 // 3. Llamar al método Repository para eliminar el usuario.
 // 4. Retornar el usuario eliminado.
 
-const { deleteUser } = require('../repositories/repository');
+function makeDeleteUser(userRepository) {
+    return async (id) => {
+        if (!id) {
+            throw new Error('ID is required');
+        }
 
-async function execute(userId) {
-    if (!userId) {
-        throw new Error('ID is required');
-    }
-    return await deleteUser(userId);
+        const user = await userRepository.deleteUser(id);
+        return user;
+    };
 }
-module.exports = { execute };
+
+module.exports = makeDeleteUser;
